@@ -7,11 +7,11 @@ using namespace std;
 
 class Node{
 public:
-    int val = -1;
-    int acum = 0;
-    vector<int> route;
+    int val = -1;               //representacion del nodo, la "letra"
+    int acum = 0;               //valor de costo acumulado 
+    vector<int> route;          //ruta recorrida
 
-    bool operator < (const Node &comp) const{
+    bool operator < (const Node &comp) const{       //operador de comparacion para la prioQueue
         return acum > comp.acum;
     }
 };

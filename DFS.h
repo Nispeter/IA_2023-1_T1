@@ -10,12 +10,12 @@ using namespace std;
 
 class DFS{
 private:
-    int init,goal;
-    int cont;
-    vector<vector<int>> cost;
-    vector<int> visited;
-    vector<int> secuence;
-    map<char,int> exp;
+    int init,goal;              //nodo de inicio y final 
+    int cont;                   //contador de costo
+    vector<vector<int>> cost;   //matriz de costos
+    vector<int> visited;        //vector de nodos visitados
+    vector<int> secuence;       //vector de secuencia de busqueda
+    map<char,int> exp;          //mapa de nodos expandidos
 
 public: 
     DFS(const int &init,const int &goal, const vector<vector<int>> &cost );

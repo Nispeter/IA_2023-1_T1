@@ -15,6 +15,7 @@ Greedy::Greedy(const int &init,const int &goal, const vector<int> &heur , const 
 int Greedy::NextNode(int node){
     int minHeur = INT_MAX;
     int temp = node;
+    //busqueda del hijo con  la menor heuristica 
     for (int i = 0; i < heur.size(); i++)
     {
         if(heur[i] < minHeur && cost[node][i] > 0){
@@ -45,12 +46,17 @@ void Greedy::PrintData(){
 
 void Greedy::Search(int node){
     do{
+        //evaluar cada nodo, si ya se visito se evita ese nodo
         if(visited[node] > 0)
             continue;
+        //marcar nodo como visitado 
         visited[node] = 1;
+        //obtener el siguiente nodo e incrementar expancion
         node = NextNode(node);
         exp[node+65]++;
+        //agregar a la secuencia 
         secuence.push_back(node);
+        //condicion de termino
     }while(node != goal);
     PrintData();
 }

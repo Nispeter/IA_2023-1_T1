@@ -12,7 +12,7 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-
+    //INICIALIZAR VARIABLES 
     int init ;
     int goal ;
     vector<vector<int>>cost = {
@@ -28,7 +28,7 @@ int main(int argc, char const *argv[])
     vector<int>heur = {
         //10,7,10,3,1,2,2,0
     };
-
+    //OPCION DE BUSQUEDA
     if(argc == 1){
         cerr<<"No Argument passed, try:"<<endl;
         cerr<<" d : for DFS search."<<endl;
@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
         cerr<<" a : for A* search."<<endl;
         return 0;
     }
-
+    //PARSER DE ARCHIVO
     parse(init,goal,heur,cost);
     string str = argv[1];
     //printParse(init,goal,heur,cost);

@@ -26,21 +26,30 @@ void BCU::PrintData(){
 }
 
 void BCU::InitInQueue(Node origin, int next){
+    //ingresar el nodo actual a la priority queue
     Node temp;
     temp.val = next;
+    //incremento del valor de costo del recorrido
     temp.acum = origin.acum + cost[origin.val][next];
+    //encadenar el nuevo nodo a la ruta 
     temp.route = origin.route;
     temp.route.push_back(origin.val);
+    //ingresar el nuevo nodo a la cola 
     p.push(temp);
 }
 
 void BCU::Search(const Node &node){
     //cerr<<node.val<<" "<<node.acum<<endl;
-    if(node.val == goal && node.acum < optimal.acum){
-        optimal = node;
-        }
+    //Verificacion si el nodo actual contiene en camino optimo
+    if(node.val == goal  ){
+        if(node.acum < optimal.acum)
+            optimal = node;
+        p.pop();
+        return ;
+    }
+    //incremento de expancion de nodo
     exp[(char)(node.val + 65)]++;
-
+    //verificacion de finalizacion
     if(p.size() == 0 && optimal.val == goal){
         if(optimal.route.size() < 1){
         cerr<<"no path found"<<endl;
@@ -49,20 +58,22 @@ void BCU::Search(const Node &node){
         optimal.route.push_back(goal);
         PrintData();
     }
-        
+    //marcar el nodo como visitado, ingresando el valor acumulado con el que se visito 
     visited[node.val] = node.acum;
+    //recorrido de todos los nodos hijos en forma BFS
     for (int i = 0; i < cost[node.val].size(); i++)
     {
         if(cost[node.val][i]!=0){
+            //comparacion si el nodo actual + el costo es menor al registrado anteriormente 
             if((node.acum + cost[node.val][i]) <= visited[i]){
                 //cerr<<" ->"<<i<<endl;
                 InitInQueue(node,i);
             }
         }
     }
-
+    //siguiente nodo expnandido, aquel que tenga menor costo recorrido acumulado
     Node tempNode = p.top();
-    
+    //remover el nodo actualmente expandido de la priorotyqueue
     p.pop();
     
     Search(tempNode);

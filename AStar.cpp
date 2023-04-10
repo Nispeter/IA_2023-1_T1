@@ -36,16 +36,11 @@ void AStar::InitInQueue(Node origin, int next){
 }
 
 void AStar::Search(const Node &node){
-    // cerr<<node.val<<" "<<node.acum<<endl;
-    // for (int i = 0; i < node.route.size(); i++)
-    // {
-    //     cerr<<(char)(node.route[i]+65)<< " ";
-    // }
-    
+    //codigo similar al de BCU 
     if(node.val == goal && node.acum < optimal.acum){
-        // cerr<<"optimal!"<<endl;
+
         optimal = node;
-     }//cerr<<endl;
+    }
     exp[(char)(node.val + 65)]++;
 
     if(p.size() == 0 && node.val != init){
@@ -61,8 +56,8 @@ void AStar::Search(const Node &node){
     for (int i = 0; i < cost[node.val].size(); i++)
     {
         if(cost[node.val][i]!=0){
+            //se concidera ademas la heuristica del nodo siguiente 
             if((node.acum + cost[node.val][i] + heur[i]) <= visited[i]){
-                // cerr<<" ->"<<i<<endl;
                 InitInQueue(node,i);
             }
         }
