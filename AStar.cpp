@@ -22,7 +22,7 @@ void AStar::PrintData(){
         cerr<<"costo: "<<cont<<endl;
         for (map<char,int>::iterator itr = exp.begin(); itr != exp.end(); itr++)
         {
-            cerr<<itr->first<<" "<<itr->second<<endl;
+            cerr<<itr->first<<": "<<itr->second<<endl;
         }
 }
 

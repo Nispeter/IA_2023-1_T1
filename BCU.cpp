@@ -21,7 +21,7 @@ void BCU::PrintData(){
         cerr<<"costo: "<<cont<<endl;
         for (map<char,int>::iterator itr = exp.begin(); itr != exp.end(); itr++)
         {
-            cerr<<itr->first<<" "<<itr->second<<endl;
+            cerr<<itr->first<<": "<<itr->second<<endl;
         }
 }
 
@@ -76,8 +76,6 @@ void BCU::Search(const Node &node){
             if(node.val == 7)cerr<<"KAJHSDFKJHASDF"<<endl;
             //comparacion si el nodo actual + el costo es menor al registrado anteriormente 
             if((node.acum + cost[node.val][i]) <= visited[i]){
-                //if(i == 7)cout<<"H "<<visited[i]<< " vs "<<node.acum + cost[node.val][i]<< ", ";
-                //cerr<<" ->"<<i<<endl;
                 InitInQueue(node,i);
             }
         }
