@@ -8,7 +8,7 @@ BCU::BCU(const int &init,const int &goal, const vector<vector<int>> &cost ){
     this->cost = cost;
     cont = 0;
     optimal.acum = INT_MAX;
-    visited = vector<int>(cost.size(),INT_MAX);
+    visited = vector<int>(cost[0].size(),INT_MAX);
 }
 
 void BCU::PrintData(){
@@ -41,31 +41,42 @@ void BCU::InitInQueue(Node origin, int next){
 void BCU::Search(const Node &node){
     //cerr<<node.val<<" "<<node.acum<<endl;
     //Verificacion si el nodo actual contiene en camino optimo
-    if(node.val == goal  ){
-        if(node.acum < optimal.acum)
-            optimal = node;
-        p.pop();
-        return ;
+    if(node.val == goal  && node.acum < optimal.acum){
+        optimal = node;
     }
-    //incremento de expancion de nodo
-    exp[(char)(node.val + 65)]++;
+    
     //verificacion de finalizacion
     if(p.size() == 0 && optimal.val == goal){
         if(optimal.route.size() < 1){
-        cerr<<"no path found"<<endl;
-        return;
+            cerr<<"no path found"<<endl;
+            return;
         }
         optimal.route.push_back(goal);
         PrintData();
+        return;
     }
-    //marcar el nodo como visitado, ingresando el valor acumulado con el que se visito 
-    visited[node.val] = node.acum;
+
+    //marcar el nodo como visitado, ingresando el valor acumulado con el que se visito
+    //respecto al costo acumulado 
+    if(visited[node.val] >= node.acum)
+        visited[node.val] = node.acum;
+    else {
+        Node tempNode = p.top();
+        p.pop();
+        Search(tempNode);
+        return;
+    }
+    //incremento de expancion de nodo
+    exp[(char)(node.val + 65)]++;
+
     //recorrido de todos los nodos hijos en forma BFS
     for (int i = 0; i < cost[node.val].size(); i++)
     {
         if(cost[node.val][i]!=0){
+            if(node.val == 7)cerr<<"KAJHSDFKJHASDF"<<endl;
             //comparacion si el nodo actual + el costo es menor al registrado anteriormente 
             if((node.acum + cost[node.val][i]) <= visited[i]){
+                //if(i == 7)cout<<"H "<<visited[i]<< " vs "<<node.acum + cost[node.val][i]<< ", ";
                 //cerr<<" ->"<<i<<endl;
                 InitInQueue(node,i);
             }

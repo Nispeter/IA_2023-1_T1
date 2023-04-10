@@ -9,7 +9,7 @@ AStar::AStar(const int &init,const int &goal,const vector<int> &heur ,const vect
     this->heur = heur;
     cont = 0;
     optimal.acum = INT_MAX;
-    visited = vector<int>(cost.size(),INT_MAX);
+    visited = vector<int>(cost[0].size(),INT_MAX);
 }
 
 void AStar::PrintData(){
@@ -41,7 +41,8 @@ void AStar::Search(const Node &node){
 
         optimal = node;
     }
-    exp[(char)(node.val + 65)]++;
+
+
 
     if(p.size() == 0 && node.val != init){
         if(optimal.route.size() < 1){
@@ -50,9 +51,22 @@ void AStar::Search(const Node &node){
         }
         optimal.route.push_back(goal);
         PrintData();
+        return;
     }
         
-    visited[node.val] = node.acum;
+    //marcar el nodo como visitado, ingresando el valor acumulado con el que se visito
+    //respecto al costo acumulado mas la heuristica del nodo
+    if(visited[node.val] >= node.acum + heur[node.val])
+        visited[node.val] = node.acum + heur[node.val];
+    else {
+        Node tempNode = p.top();
+        p.pop();
+        Search(tempNode);
+        return;
+    }
+    //incremento de expancion de nodo
+    exp[(char)(node.val + 65)]++;
+
     for (int i = 0; i < cost[node.val].size(); i++)
     {
         if(cost[node.val][i]!=0){
