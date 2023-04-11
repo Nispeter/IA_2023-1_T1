@@ -18,4 +18,4 @@ Los nombres de los nodos del grafo deben ser nombrados con maximo un caracterde 
 Las heuristicas deben ser entregadas en orden alfabetico.
 
 ### Warning
-Este es de los peores codigos que he hecho, principalmente por las malas practicas , los arreglos baratos en el codigo y la legibilidad.
+El codigo no es muy elegante :/
