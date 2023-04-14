@@ -19,3 +19,4 @@ Las heuristicas deben ser entregadas en orden alfabetico.
 
 ### Warning
 El codigo no es muy elegante :/
+EL PARSER NO CONCIDERA ESPACIOS PARA EL INPUT DE LOS COSTOS -> <nodo>,<nodo>,<costo>
